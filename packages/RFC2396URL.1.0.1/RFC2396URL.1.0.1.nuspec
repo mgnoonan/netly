@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>RFC2396URL</id>
+    <version>1.0.1</version>
+    <title>RFC2396 URL</title>
+    <authors>Keyvan Nayyeri</authors>
+    <owners>Keyvan Nayyeri</owners>
+    <licenseUrl>http://github.com/keyvan/RFC2396URL/blob/master/license.txt</licenseUrl>
+    <projectUrl>http://github.com/keyvan/RFC2396URL</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a .NET library for dealing with RFC2396 URLs: http://www.ietf.org/rfc/rfc2396.txt</description>
+    <summary>RFC2396 URL library in .NET for URL canonicalization.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>URL RFC RFC2396</tags>
+  </metadata>
+</package>

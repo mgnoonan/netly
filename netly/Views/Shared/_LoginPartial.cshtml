@@ -1,0 +1,19 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <a class="user_link" href="@Url.Action("ChangePassword", "Account")"><span class="user_avatar rounded" style="background-image: url(http://bit.ly/u/mgnoonan.png);">
+    </span><span class="display_name">@User.Identity.Name</span></a>
+    <ul class="user_links roundbtm">
+        <!-- ı is option shift b -->
+        <li><a href="/pages/tools">Tools</a> </li>
+        <li><a href="/pages/sidebar">Shorten Everywhere</a> </li>
+        <li><a href="/a/recover_links">Link Archive</a> </li>
+        <li><a href="/a/help">Help</a> </li>
+        <li><a href="/a/account">Settings</a> </li>
+        <li><a href="/a/sign_out">Sign Out</a></li>
+    </ul>
+}
+else
+{
+    @Html.ActionLink("Sign up", "Register", "Account")
+    @Html.ActionLink("Sign in", "Login", "Account")
+}

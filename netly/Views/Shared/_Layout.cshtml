@@ -1,0 +1,138 @@
+﻿@{
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    string actionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="IE=8" http-equiv="X-UA-Compatible">
+    <meta name="keywords" content="tinurldotnet, awesome, url shortener" />
+    <meta name="description" content="tinyurldotnet, shorten, share and track your links" />
+    <script type="text/javascript">
+        // remove nojs from html
+        try { document.getElementsByTagName("html")[0].className = ""; }
+        catch (ex) { }
+    </script>
+    <script src="~/scripts/jquery-2.1.0.min.js"  type="text/javascript"></script>
+    <link rel="stylesheet" href="~/css/bitly.css" type="text/css" charset="utf-8" />
+
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="@Url.Content("~/css/IE.css")" type="text/css" charset="utf-8" />
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="@Url.Content("~/css/IE6.css")" type="text/css" charset="utf-8" />
+<![endif]-->
+
+  <link rel="icon" href="~/img/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="@Url.Content("~/css/metrics_summary.css")" type="text/css" charset="utf-8">
+
+    <style type="text/css">
+        /* temp until i put sticky footer on every page */
+        html:before, #middle:before { /* Opera and IE8 "redraw" bug fix */
+        content:"";
+        float:left;
+        height:100%;
+        margin-top:-999em;
+        }
+        * html #wrap { /* IE6 workaround */
+        height:100%;
+        }
+    </style>
+
+</head>
+<body> 
+<div class="ext_bitly_chrome_promo_delay promo"> 
+</div> 
+ 
+ 
+<div id="external_container"> 
+<div id="container"> 
+<!-- Put Content Here --> 
+<div id="top"> 
+    <div id="header" class="clearfix loggedout"> 
+        <a id="logo" class="logo" href="@Url.Content("~/")">netly</a> 
+        @if (Request.IsAuthenticated)
+        { 
+        <script type="text/javascript">
+            $('#header').removeClass('loggedout');
+        </script>
+        <form id="search_form" action="/a/search" method="GET">
+            <fieldset>
+                <input class="text rounded default" type="text" name="q" id="q" value="search your netly links"
+                    autocomplete="off">
+                <input class="submit" type="submit" value="Search Links">
+            </fieldset>
+            <div class="historySuggestLoaderIconClass" style="display: none;"></div>
+        </form>
+        <div class="hintBox rounded" style="display: none;"></div>
+        <ul id="main_nav" class="clearfix"> 
+            <li class="@(actionName == "Add" ? "active" : "")"> 
+                @Html.ActionLink("Shorten & Share", "Add", "Info")
+            </li> 
+            <li class="@(actionName == "Analyze" ? "active" : "")"> 
+                @Html.ActionLink("Analyze", "Analyze", "Info")
+            </li> 
+            <li class="@(actionName == "User" ? "active" : "")"> 
+                @Html.ActionLink("Public Timeline", "User", "Info")
+            </li> 
+        </ul>
+        }
+        <div id="loginContainer" class="unauth"> 
+            @Html.Partial("_LoginPartial")
+        </div> 
+    </div> 
+</div> <!-- end #top --> 
+<div id="middle"> 
+    @RenderBody()
+</div> <!-- END #middle --> 
+<div id="bottom"> 
+ 
+ 
+<div class="footerLinksContainer clearfix"> 
+    <div class="footerColumn"> 
+        <h2>netly</h2> 
+        <ul> 
+            <li><a href="/pages/help">Help</a></li> 
+            <li><a href="/pages/tools">Tools</a></li> 
+            <li><a href="/pages/partners">Partners</a></li> 
+            <li><a href="http://api.bitly.com">API</a></li> 
+            <li><a href="/a/sign_up">Sign Up</a></li> 
+        </ul> 
+    </div> 
+    <div class="footerColumn"> 
+        <h2>netlyverse</h2> 
+        <ul> 
+            <li><a href="/pro/">netly Enterprise</a></li> 
+            <li><a href="http://news.me/">news.me</a></li> 
+            <li><a href="http://labs.bitly.com/">bitly labs</a></li> 
+        </ul> 
+    </div> 
+    <div class="footerColumn"> 
+        <h2>Company</h2> 
+        <ul> 
+            <li><a href="/pages/about">About</a></li> 
+            <li><a href="http://blog.bit.ly">Blog</a></li> 
+            <li><a href="/pages/jobs">Jobs</a></li> 
+            <li><a href="/pages/privacy">Privacy</a></li> 
+            <li><a href="/pages/terms-of-service">Terms of Service</a></li> 
+        </ul> 
+    </div> 
+    <div class="footerColumn"> 
+        <h2>Community</h2> 
+        <ul> 
+            <li><a href="http://feedback.bit.ly/">Feedback</a></li> 
+            <li><a href="mailto:support+sitelink@bit.ly">Contact</a></li> 
+            <li><a href="/a/report_spam">Report Abuse</a></li> 
+        </ul> 
+    </div> 
+    <div class="bitlyTrademarkContainer">&copy; @DateTime.Now.Year netly <span class="super">TM</span><br /><span id="madeinnyc">handmade in nyc</span></div> 
+</div> 
+ 
+</div> <!-- end #bottom --> 
+</div> <!-- end #container --> 
+</div> <!-- end #external_container --> 
+ 
+</body> 
+</html>

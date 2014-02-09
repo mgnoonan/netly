@@ -1,0 +1,142 @@
+﻿@model netly.Models.UrlStatistic
+@using netly.Helpers;
+@using NCI.Helpers;
+@{
+    ViewBag.Title = "Index";
+
+    var map = Model.UrlMap;
+    var agg = Model.UrlAggregate;
+    
+    string shortUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + (map == null ? agg.AggregateUrl : (string.IsNullOrWhiteSpace(map.CustomUrl) ? map.ShortUrl : map.CustomUrl));
+    string shortUrlDisplay = (shortUrl.Length > 75 ? shortUrl.Left(75) + "..." : shortUrl);
+    string shortUrlDisplayNoScheme = shortUrlDisplay.Replace(Request.Url.GetLeftPart(UriPartial.Scheme), "");
+    string infoUrl = shortUrl + "+";
+    string longUrlDisplay = (agg.LongUrl.Length > 75 ? agg.LongUrl.Left(75) + "..." : agg.LongUrl);
+    string longUrlDisplayNoScheme = longUrlDisplay.Replace(Request.Url.GetLeftPart(UriPartial.Scheme), "");
+    string aggUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + agg.AggregateUrl;
+    string aggUrlDisplayNoScheme = aggUrl.Replace(Request.Url.GetLeftPart(UriPartial.Scheme), "");
+    string title = (agg.Title.IsNullOrWhiteSpace() ? map.ShortUrl : (agg.Title.Length > 75 ? agg.Title.Left(75) + "..." : agg.Title));
+    string addedBy = (map == null ? agg.AddedBy : map.AddedBy);
+    string chartTotalByUrl = "/Chart/TotalByUrl?" + (map == null ? "urlHash=" + agg.UrlHash : "shortUrl=" + map.ShortUrl + "&customUrl=" + map.CustomUrl);
+    string chartCountriesByUrl = "/Chart/CountriesByUrl?" + (map == null ? "urlHash=" + agg.UrlHash : "shortUrl=" + map.ShortUrl + "&customUrl=" + map.CustomUrl);
+    string chartReferrersByUrl = "/Chart/ReferrersByUrl?" + (map == null ? "urlHash=" + agg.UrlHash : "shortUrl=" + map.ShortUrl + "&customUrl=" + map.CustomUrl);
+}
+<script>
+    $(document).ready(function () {
+        $("body").addClass("info_page");
+    });
+</script>
+<script type="text/javascript" src="@Url.Content("~/js/zeroclipboard.js")"></script>
+<!--script type="text/javascript" src="@Url.Content("~/js/clipboard.js")"></script-->
+
+<h1 class="hash">
+    @shortUrlDisplayNoScheme</h1>
+<a class="share white_button" href="#">Share</a> <a class="copy white_button" href="#">
+    Copy<span class="clippy"></span></a>
+<div class="main_info">
+    <h2 id="info_title">
+        @agg.Title</h2>
+    <ul class="clicks clearfix">
+        @if (map != null)
+        { 
+        <li class="user_clicks clearfix"><span class="count">@Model.Clicks </span>
+            <p>
+                <strong>Clicks</strong> This bitly link <a class="hash" href="@shortUrl">
+                    @shortUrlDisplayNoScheme</a> was added by <a id="created_by" href="@Url.Action("User", "Info", new { username = addedBy })">@addedBy</a>
+            </p>
+        </li>
+        }
+        <li class="global_clicks clearfix"><span class="count">@Model.TotalClicks </span>
+            <p>
+                <strong>Clicks</strong> All clicks on the aggregate bitly link <a class="hash" href="@aggUrl">
+                    @aggUrlDisplayNoScheme</a> | <a class="global_info" href="@aggUrl+">Info Page+</a>
+            </p>
+        </li>
+    </ul>
+    <ul class="social clearfix">
+        <li class="clearfix"><span class="label">Long Link:</span> <a href="@agg.LongUrl">
+            @longUrlDisplay</a>
+        </li>
+        <li class="clearfix"><span class="label">Conversations:</span>
+            <ul class="conversations clearfix">
+                <li class="twitter" style="display: list-item; ">Tweets <strong>@Model.Conversations.Count</strong>;</li>
+                <li class="facebook"></li>
+                <li class="friendfeed"></li>
+                <li class="backtype"></li>
+                <li class="link" style="display:list-item;"><a href="#conversations">View All</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="qr">
+        <!--a class="hash" href="http://bit.ly/gER0rb.qrcode">
+            <img src="/gER0rb.qrcode?s=137">
+            bit.ly/gER0rb.qrcode </a-->
+    </div>
+</div>
+<h2 class="metrics_summary_header">
+    <span id="catd_total_clicks">@Model.Clicks </span>Click(s) <span class="catd_hdr_light">on this link
+        <span class="date_range"></span></span>
+</h2>
+<div id="select_metrics_summary_view" class="middle_float_container">
+    <div id="catd_drop_outer_box" style="display: none;">
+    </div>
+</div>
+<div id="candy_bar_box">
+    <div id="metrics_summary_bars">
+		<img src="@chartTotalByUrl" />
+    </div>
+    <span id="timezone">All times are UTC-4</span>
+</div>
+<div id="middle_second_tier">
+    <div id="" class="middle_float_container">
+        <h2 class="metrics_summary_header">
+            Referrers Detail</h2>
+        <!--<p class="catd_sub_header">&nbsp;
+<span id="ref_domain_count">4</span> Referring Domains From 
+<span id="ref_total_count">18</span>  Total pages</p>
+</p>-->
+        <div class="pie_box">
+            <div id="metrics_summary_referrer_pie">
+                <img src="@chartReferrersByUrl" />
+            </div>
+        </div>
+        <div id="referrer_data_table" class="catd_table_box">
+        </div>
+    </div>
+    <div id="" class="middle_r_float_container">
+        <h2 class="metrics_summary_header">
+            Locations Detail: <span class="catd_sub_header"><span id="country_total"></span>Countries</span></h2>
+        <!--<p class="catd_sub_header"></p>-->
+        <div class="pie_box">
+            <div id="metrics_summary_country_pie">
+                <img src="@chartCountriesByUrl" />
+            </div>
+        </div>
+        <div id="location_data_table" class="catd_table_box">
+        </div>
+        <div class="hr">
+            <hr />
+        </div>
+    </div>
+    <div class="hr">
+        <hr />
+    </div>
+</div>
+<div id="conversations" style="display:block;">
+    <h2>
+        Conversations</h2>
+    <ul class="twitter">
+@foreach (TweetSharp.TwitterSearchStatus status in Model.Conversations)
+{
+        <li class="conv tweet">
+            <img src="@status.ProfileImageUrl"><p>
+                <a href="http://twitter.com/@status.FromUserScreenName">@status.FromUserScreenName</a>
+                @status.Text
+                <a href="http://twitter.com/@status.FromUserScreenName/status/@status.Id"
+                    class="timeago">@status.CreatedDate</a></p>
+		</li>
+}
+    </ul>
+    <ul class="backtype">
+    </ul>
+</div>

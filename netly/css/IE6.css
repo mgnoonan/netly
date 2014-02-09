@@ -1,0 +1,37 @@
+* html .bundle_content, * html .bundle_stats {
+  display: inline;
+}
+
+* html .bundle_content {
+  padding-right: 18px;
+}
+
+
+.bundle_wrapper {
+    zoom: 1;
+}
+
+#bundle_links li {
+  position: relative;
+  overflow: hidden !important;
+}
+
+#bundle_links h3 {
+  width: 680px;
+  overflow: hidden !important;
+}
+
+#main_nav li, #sub_nav li {
+  width: 130px;
+  text-align: center;
+}
+
+
+.link_preview {
+  width: 680px;
+  overflow: hidden !important;
+}
+
+.link_preview.video {
+  text-align: center;
+}

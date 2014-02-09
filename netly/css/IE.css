@@ -1,0 +1,89 @@
+.clearfix {
+  zoom: 1;
+}
+
+#sub_nav li.active a {
+  font-weight: bold;
+}
+
+.info_page #conversations .tweet img,
+#share_previewer .share_account img {
+  z-index: -1;
+}
+
+#mainShortenContainer {
+  z-index: 10;
+}
+#mainShortenContainer.arrow:before {
+  top: 167px;
+}
+#mainShortenContainer.arrow:after {
+  top: 169px;
+}
+.link_preview.link img, .link_preview.html img {
+  float: left;
+}
+
+.timeline_page #multiline_toggle {
+  float: none;
+  position: absolute;
+  right: 0px;
+  top: -20px;
+}
+
+#fb_preview_controls a {
+  text-indent: -9999px;
+  background: transparent url(/img/zippy.png) no-repeat scroll center center;
+}
+
+#fb_preview_controls a.prev {
+  background-image: url(/img/zippy-less.png);
+}
+
+
+.nogame, .nogame li,.nogame li .team_member {
+  position: relative;
+  z-index: 1;
+}
+
+.nogame li:hover  {
+  z-index: 1000;
+  zoom: 1;
+}
+
+.connecting_account span.avatar {
+  position: absolute;
+}
+.connecting_account span.td {
+  padding-left: 58px;
+}
+
+.connecting_account img {
+  z-index: -1;
+  zoom: 1;
+}
+
+.off {
+  filter: alpha(opacity=50);
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+.activeAccount,
+.linked_accounts li,
+.linked_account_item {
+  position: relative;
+  z-index: 50;
+}
+.activeAccount img,
+img.activeAccount,
+.linked_accounts li img,
+.linked_account_item img {
+  position: relative;
+  z-index: -1;
+}
+
+span.activeAccount:before,
+.linked_accounts li:before
+.linked_account_item:before {
+  z-index: 51;
+}

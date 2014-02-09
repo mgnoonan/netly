@@ -1,0 +1,127 @@
+﻿@model IEnumerable<netly.UrlMapDetailView>
+@using NCI.Helpers
+@using netly.Helpers
+
+@{
+    ViewBag.Title = User.Identity.Name + "'s Public Timeline | netly | shorten, share and track your links";
+}
+<script>
+    $(document).ready(function () {
+        $("body").addClass("public_timeline timeline_page");
+    });
+</script>
+<div class="resultsContainer">
+<div id="historyHeadline"><div class="publicTimeLineInfoTextBox clearfix">
+<h2>Public Timeline</h2></div></div>
+<div id="weeklySparkLines"></div>
+    <div id="results">
+        <ul id="multiline_toggle" class="oneRowSelected">
+            <li><a class="showMoreInfo" type="two_row" href="#">Two Rows</a></li>
+            <li><a class="hideMoreInfo" type="one_row" href="#">One Row</a></li>
+        </ul>
+        <div class="resultsBarContainer">
+            <b class="resultsBar1">Clicks </b><b class="resultsBar2">Links </b><b class="resultsBar3">
+                Info Plus </b><b class="resultsBar4">Date </b><b class="resultsBar5">Options
+            </b>
+        </div>
+@foreach (var map in Model)
+{
+    string shortUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/" + (string.IsNullOrWhiteSpace(map.CustomUrl) ? map.ShortUrl : map.CustomUrl);
+    string shortUrlDisplay = (shortUrl.Length > 100 ? shortUrl.Left(100) + "..." : shortUrl);
+    string shortUrlDisplayNoScheme = shortUrlDisplay.Replace(Request.Url.GetLeftPart(UriPartial.Scheme), "");
+    string infoUrl = shortUrl + "+";
+    string longUrlDisplay = (map.LongUrl.Length > 100 ? map.LongUrl.Left(100) + "..." : map.LongUrl);
+    string title = (string.IsNullOrWhiteSpace(map.Title) ? map.ShortUrl : (map.Title.Length > 75 ? map.Title.Left(75) + "..." : map.Title));
+    string aggregateUrl = "#";
+        <div class="resultsItemContainer">
+            <div class="resultsColumn2 resultsColumn">
+                <div class="statsList" style="display: block;">
+                    <div class="userStats">
+                        <h4>
+                            <a title="Get Real-time Metrics for this link" type="@map.ShortUrl" href="@infoUrl">@string.Format("{0:#,##0}", map.Clicks)</a></h4>
+                    </div>
+                    <div class="statsSeparator">
+                        out of</div>
+                    <div class="globalStats">
+                        <a type="" href="@aggregateUrl">@string.Format("{0:#,##0}", map.TotalClicks)</a></div>
+                </div>
+                <div class="hr">
+                    <hr>
+                </div>
+            </div>
+            <div class="resultsColumn4 resultsColumn">
+                <div class="linkTitleContainer">
+                    <h4 class="linkTitle">
+                        <img class="historyFavicon" src="/favicon.ico" width="16" height="16" alt="favicon"
+                            border="0"><a title="@map.LongUrl"
+                                href="@shortUrl">@title</a></h4>
+                </div>
+                <div class="long_url_display_more">
+                    <a href="@map.LongUrl" title="@map.LongUrl">
+                        @longUrlDisplay</a></div>
+                <div class="short_url_display_more">
+                    <a href="@shortUrl" title="@shortUrl" class="hash">@shortUrlDisplayNoScheme</a><span
+                        class="copy_customize flash"><a style="text-indent: 0px;" class="copy_button" href="#"
+                            data-href="@shortUrl"> - Copy<span class="clippy"></span>
+                            <div style="position: absolute; left: 0px; top: 0px; width: 37px; height: 28px; z-index: 99;">
+                                <embed id="ZeroClipboardMovie_1" src="@Url.Content("~/content/ZeroClipboard.swf")"
+                                    loop="false" menu="false" quality="best" bgcolor="#ffffff" width="37" height="28"
+                                    name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false"
+                                    type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                                    flashvars="id=1&amp;width=37&amp;height=28" wmode="transparent">
+                            </div>
+                        </a></span>
+                </div>
+            </div>
+            <div class="resultsColumn5 resultsColumn">
+                <a href="@infoUrl" title="Real-time stats for @shortUrlDisplayNoScheme+">Info Page+</a></div>
+            <div class="resultsColumn6 resultsColumn">
+                <div class="dateAndTimeBox">
+                    @map.DateAdded.ToString("MMMM d")</div>
+            </div>
+            <div class="resultsColumn7 resultsColumn">
+                <div class="optionsDropDownContainer" type="@map.ShortUrl" alt="@shortUrl">
+                    <!--ul class="toolsDropList">
+                        <li class="topLevel">
+                            <div class="optionsToolPanel">
+                                <b class="topLeft"></b><b class="topRight"></b><span>Options</span></div>
+                            <ul class="toolsList">
+                                <li class="toolsListShare"><a class="optionsShareButton" href="#">Share</a></li><li
+                                    class="optionsCopyButtonContainer"><a class="optionsCopyButton" href="#">Copy</a>
+                                    <div style="position: absolute; left: 0px; top: 0px; width: 65px; height: 20px; z-index: 99;">
+                                        <embed id="ZeroClipboardMovie_16" src="@Url.Content("~/content/ZeroClipboard.swf")"
+                                            loop="false" menu="false" quality="best" bgcolor="#ffffff" width="60" height="20"
+                                            name="ZeroClipboardMovie_16" align="middle" allowscriptaccess="always" allowfullscreen="false"
+                                            type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                                            flashvars="id=16&amp;width=60&amp;height=20" wmode="transparent">
+                                    </div>
+                                </li>
+                                <li class="editableTitleListItem"><a class="editableTitleButton" href="#">Edit</a></li></ul>
+                        </li>
+                    </ul-->
+                </div>
+            </div>
+            <div class="moreInfo row2">
+                <div class="link_preview">
+                </div>
+            </div>
+            <div class="hr">
+                <hr>
+            </div>
+        </div>
+        <!-- end .resultsItemContainer -->
+}
+        <div id="pagination">
+            <div class="paginationLinks">
+                @Html.Pager((int)ViewBag.PageSize, (int)ViewBag.CurrentPage, (int)ViewBag.RecordCount, "User")
+                <!--span class="inactivePagination previousPagination">Previous</span><span><a class="activePaginationLink"
+                    href="/u/shanselman/page/1">1</a></span><span class="activePagination nextPagination"><a
+                        href="/u/shanselman/page/2" class="previousLinkActive">Next</a></span-->
+                <div class="hr">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end #resultsContainer -->
+</div>

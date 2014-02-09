@@ -1,0 +1,58 @@
+@{
+    Layout = "~/Views/Shared/_LayoutUnauth.cshtml";
+    ViewBag.Title = "netly | shorten, share and track your links";
+}
+
+<!-- Sorry, you are not signed in -->
+<div id="middle_inner">
+    <div id="header">
+        <a id="logo" href="/">netly</a>
+    </div>
+    <div id="middleLevelContainer1">
+        <div id="mainSearchContainer" class="">
+            <div id="mainSearchContainerInner" class="mainUnAuthShortenContainerInner">
+                <div class="formActionContainer">
+                    <!--form action="/" method="POST" name="shortenUrl" id="unAuthShortenForm"-->
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, htmlAttributes: new { id = "unAuthShortenForm", name = "shortenUrl" }))
+                    { 
+                    <div class="shortenUnAuthBox clearfix">
+                        <div id="mainUnAuthShortenContainer" class="inputBoxContainer">
+                            <input tabindex="1" id="shortenUnAuthContainer" type="text" name="url" value="" />
+                        </div>
+                        <input type="submit" class="submitButtonBackground white_button" id="unAuthShortenButton"
+                            name="searchButton" value="Shorten" />
+                        @Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "sign_in" })
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="shortenedBitlyListListBox last_shorten ">
+            <div class="linkCapsule_link clearfix">
+                <strong class="shortened_url">Shortened links</strong> <strong class="realtime_stats">
+                    Real-time stats</strong> <strong class="long_link">Long link</strong>
+            </div>
+            <ul class="shortened_results_list">
+            </ul>
+        </div>
+        <div class="resultsContainer">
+            <div id="historyHeadline">
+            </div>
+            <div id="weeklySparkLines">
+            </div>
+            <div id="results">
+                <div id="preloaderContainer">
+                    <img src="~/img/64_64_blue_preloader.gif" alt="" border="0" width="64"
+                        height="64" /></div>
+            </div>
+            <!-- end #resultsContainer -->
+        </div>
+        <p id="signup_promo" class="clearfix">
+            Netly helps you share, track and analyze your links. @Html.ActionLink("Sign Up »", "Register", "Account", routeValues: null, htmlAttributes: new { id = "sign_up" })
+        </p>
+        <ul class="open_login clearfix" id="main_open_login">
+            <li class="login_twitter">&nbsp;</li>
+            <li class="login_facebook">&nbsp;</li>
+        </ul>
+    </div>
+</div>

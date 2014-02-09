@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="netlyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApiKey">
+          <Key>
+            <PropertyRef Name="ApiKey" />
+          </Key>
+          <Property Name="ApiKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlAggregate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrlHash" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="AggregateUrl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LongUrl" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Keywords" Type="varchar" MaxLength="255" />
+          <Property Name="ContentType" Type="varchar" MaxLength="100" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="AddedBy" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrlHash" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="50" />
+          <Property Name="HttpReferer" Type="varchar" MaxLength="255" />
+          <Property Name="HttpUserAgent" Type="varchar" MaxLength="255" />
+          <Property Name="RemoteAddr" Type="varchar" MaxLength="50" />
+          <Property Name="RemoteHost" Type="varchar" MaxLength="50" />
+          <Property Name="ServerName" Type="varchar" MaxLength="50" />
+          <Property Name="BaseUri" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="char" MaxLength="2" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrlHash" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomUrl" Type="varchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="AddedBy" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TinyUrl.dbo.UrlHistoryDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UrlHistoryDetailView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UrlHash" />
+            <PropertyRef Name="ts" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UrlHash" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="50" />
+          <Property Name="HttpReferer" Type="varchar" MaxLength="255" />
+          <Property Name="HttpUserAgent" Type="varchar" MaxLength="255" />
+          <Property Name="RemoteAddr" Type="varchar" MaxLength="50" />
+          <Property Name="RemoteHost" Type="varchar" MaxLength="50" />
+          <Property Name="ServerName" Type="varchar" MaxLength="50" />
+          <Property Name="BaseUri" Type="varchar" MaxLength="50" />
+          <Property Name="ts" Type="datetime" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="100" />
+          <Property Name="CountryCode" Type="char" MaxLength="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TinyUrl.dbo.UrlMapDetailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UrlMapDetailView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ShortUrl" />
+            <PropertyRef Name="DateAdded" />
+            <PropertyRef Name="AddedBy" />
+            <PropertyRef Name="UrlHash" />
+            <PropertyRef Name="LongUrl" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomUrl" Type="varchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="AddedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UrlHash" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="LongUrl" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Clicks" Type="int" />
+          <Property Name="TotalClicks" Type="int" />
+        </EntityType>
+        <EntityContainer Name="netlyModelStoreContainer">
+          <EntitySet Name="ApiKey" EntityType="Self.ApiKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrlAggregate" EntityType="Self.UrlAggregate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrlHistory" EntityType="Self.UrlHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrlMap" EntityType="Self.UrlMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrlHistoryDetailView" EntityType="Self.UrlHistoryDetailView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UrlHistoryDetailView].[Id] AS [Id], 
+    [UrlHistoryDetailView].[UrlHash] AS [UrlHash], 
+    [UrlHistoryDetailView].[ShortUrl] AS [ShortUrl], 
+    [UrlHistoryDetailView].[HttpReferer] AS [HttpReferer], 
+    [UrlHistoryDetailView].[HttpUserAgent] AS [HttpUserAgent], 
+    [UrlHistoryDetailView].[RemoteAddr] AS [RemoteAddr], 
+    [UrlHistoryDetailView].[RemoteHost] AS [RemoteHost], 
+    [UrlHistoryDetailView].[ServerName] AS [ServerName], 
+    [UrlHistoryDetailView].[BaseUri] AS [BaseUri], 
+    [UrlHistoryDetailView].[ts] AS [ts], 
+    [UrlHistoryDetailView].[CountryName] AS [CountryName], 
+    [UrlHistoryDetailView].[CountryCode] AS [CountryCode]
+    FROM [dbo].[UrlHistoryDetailView] AS [UrlHistoryDetailView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UrlMapDetailView" EntityType="Self.UrlMapDetailView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UrlMapDetailView].[Id] AS [Id], 
+    [UrlMapDetailView].[ShortUrl] AS [ShortUrl], 
+    [UrlMapDetailView].[CustomUrl] AS [CustomUrl], 
+    [UrlMapDetailView].[DateAdded] AS [DateAdded], 
+    [UrlMapDetailView].[AddedBy] AS [AddedBy], 
+    [UrlMapDetailView].[UrlHash] AS [UrlHash], 
+    [UrlMapDetailView].[LongUrl] AS [LongUrl], 
+    [UrlMapDetailView].[Title] AS [Title], 
+    [UrlMapDetailView].[Clicks] AS [Clicks], 
+    [UrlMapDetailView].[TotalClicks] AS [TotalClicks]
+    FROM [dbo].[UrlMapDetailView] AS [UrlMapDetailView]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="netlyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApiKey">
+          <Key>
+            <PropertyRef Name="ApiKey1" />
+          </Key>
+          <Property Name="ApiKey1" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlAggregate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrlHash" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AggregateUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LongUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Keywords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrlHash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HttpReferer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HttpUserAgent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RemoteAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RemoteHost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaseUri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="UrlMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrlHash" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UrlHistoryDetailView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UrlHash" />
+            <PropertyRef Name="ts" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UrlHash" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HttpReferer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HttpUserAgent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RemoteAddr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RemoteHost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaseUri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ts" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UrlMapDetailView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ShortUrl" />
+            <PropertyRef Name="DateAdded" />
+            <PropertyRef Name="AddedBy" />
+            <PropertyRef Name="UrlHash" />
+            <PropertyRef Name="LongUrl" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UrlHash" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LongUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Clicks" Type="Int32" />
+          <Property Name="TotalClicks" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="netlyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApiKeys" EntityType="Self.ApiKey" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="UrlAggregates" EntityType="Self.UrlAggregate" />
+          <EntitySet Name="UrlHistories" EntityType="Self.UrlHistory" />
+          <EntitySet Name="UrlMaps" EntityType="Self.UrlMap" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <EntitySet Name="UrlHistoryDetailViews" EntityType="Self.UrlHistoryDetailView" />
+          <EntitySet Name="UrlMapDetailViews" EntityType="Self.UrlMapDetailView" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="netlyModelStoreContainer" CdmEntityContainer="netlyEntities">
+          <EntitySetMapping Name="ApiKeys">
+            <EntityTypeMapping TypeName="netlyModel.ApiKey">
+              <MappingFragment StoreEntitySet="ApiKey">
+                <ScalarProperty Name="ApiKey1" ColumnName="ApiKey" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="netlyModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlAggregates">
+            <EntityTypeMapping TypeName="netlyModel.UrlAggregate">
+              <MappingFragment StoreEntitySet="UrlAggregate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UrlHash" ColumnName="UrlHash" />
+                <ScalarProperty Name="AggregateUrl" ColumnName="AggregateUrl" />
+                <ScalarProperty Name="LongUrl" ColumnName="LongUrl" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlHistories">
+            <EntityTypeMapping TypeName="netlyModel.UrlHistory">
+              <MappingFragment StoreEntitySet="UrlHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UrlHash" ColumnName="UrlHash" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="HttpReferer" ColumnName="HttpReferer" />
+                <ScalarProperty Name="HttpUserAgent" ColumnName="HttpUserAgent" />
+                <ScalarProperty Name="RemoteAddr" ColumnName="RemoteAddr" />
+                <ScalarProperty Name="RemoteHost" ColumnName="RemoteHost" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="BaseUri" ColumnName="BaseUri" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlMaps">
+            <EntityTypeMapping TypeName="netlyModel.UrlMap">
+              <MappingFragment StoreEntitySet="UrlMap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UrlHash" ColumnName="UrlHash" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="CustomUrl" ColumnName="CustomUrl" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="netlyModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlHistoryDetailViews">
+            <EntityTypeMapping TypeName="netlyModel.UrlHistoryDetailView">
+              <MappingFragment StoreEntitySet="UrlHistoryDetailView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UrlHash" ColumnName="UrlHash" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="HttpReferer" ColumnName="HttpReferer" />
+                <ScalarProperty Name="HttpUserAgent" ColumnName="HttpUserAgent" />
+                <ScalarProperty Name="RemoteAddr" ColumnName="RemoteAddr" />
+                <ScalarProperty Name="RemoteHost" ColumnName="RemoteHost" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="BaseUri" ColumnName="BaseUri" />
+                <ScalarProperty Name="ts" ColumnName="ts" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlMapDetailViews">
+            <EntityTypeMapping TypeName="netlyModel.UrlMapDetailView">
+              <MappingFragment StoreEntitySet="UrlMapDetailView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="CustomUrl" ColumnName="CustomUrl" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="UrlHash" ColumnName="UrlHash" />
+                <ScalarProperty Name="LongUrl" ColumnName="LongUrl" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="TotalClicks" ColumnName="TotalClicks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

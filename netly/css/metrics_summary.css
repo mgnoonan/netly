@@ -1,0 +1,351 @@
+﻿/*
+   metrics_summary.css
+   crazy-fe
+   
+   Created by gregory tomlinson on 2011-02-14.
+   Copyright 2011 the public domain. All rights reserved.
+*/
+
+/*  be generic, be be generic [with a beat, son]  */
+.metrics_selected_blue {
+    background:#69f;
+    color:white;
+    margin-right:5px;
+    display:block;
+    padding:4px 8px;
+}
+.metrics_selected_blue:hover{
+    color:#eee;
+    background:#69e;
+}
+#middle_top {
+    padding-top:20px;
+    z-index:1;
+    position:relative;
+    clear:both;
+    float:none;
+}
+#middle_top_r_container {
+    position:absolute;
+    right:0;
+    z-index:50;
+    top:22px;
+}
+#metrics_summary_bars {
+    position:relative;
+}
+.middle_float_container {
+    float:left;
+}
+.middle_r_float_container {
+    float:right;
+}
+
+.pie_box {
+    padding:10px 65px;
+    border:1px solid #ccc;
+    background:#f6f6f6;
+}
+.metrics_summary_header {
+    font-size:18px;
+    font-weight:normal;
+    margin:2px 0 10px;
+}
+/*pie boxes  */
+.catd_sub_header {
+    color:#999;
+    font-weight: lighter;
+}
+.catd_hdr_light {
+    color:#999;
+}
+
+#middle_second_tier {
+    margin-top:20px;
+    min-height:400px;
+}
+#candy_bar_box {
+    border:1px solid #ccc;
+    padding:20px 20px 20px 40px;
+    background:#f6f6f6;
+    position: relative;
+}
+#candy_bar_lower_box {
+    position:relative;
+}
+
+#timezone {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  line-height: 20px;
+  color: #999;
+  font-size: 11px;
+}
+.catd_table_box {
+    margin-top:20px;    
+}
+.catd_table_item {
+    position:relative;
+    margin:0;
+    border-bottom:1px solid #eee;
+    padding:8px 0;
+    text-indent:30px;    
+}
+
+.catd_table_item .pie_item_label {
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.catd_table_hdr {
+    position:relative;
+    background:#f1f1f1;
+    padding:10px 0;
+    font-weight:normal;
+    margin:5px 0 10px;
+    text-indent:10px;
+}
+.catd_table_item_clicks, .catd_tablr_hdr_right {
+    position:absolute;
+    right:50px;
+}
+
+.catd_table_item_clicks {
+  top: 8px;
+}
+
+.catd_tablr_hdr_right {
+    bottom:8px;
+}
+.catd_more_table_data {
+    /*   link button  */
+    display:block;
+    clear:both;
+    font-size:13px;
+    margin:10px 0 0 10px;
+}
+
+.pie_box {
+    position:relative;
+}
+
+/*  ummmm, yeah */
+#catd_drop_outer_box {
+    background:#f6f6f6 url(/s/graphics/grey_arrow_down.png) no-repeat 148px 8px;
+    padding:3px 0 0 0;
+    width:162px;
+    border:1px solid #ccc;
+    margin-left:5px;   
+    min-height:18px;
+    text-indent: 7px;
+
+}
+#catd_drop_outer_box.catd_menu_open {
+    background-image:url(/s/graphics/grey_arrow_up.png);
+}
+.catd_dropdown_single_item a {
+    color:#666;
+}
+
+.catd_dropdown_single_item {
+    cursor:pointer;
+}
+.catd_dropdown_single_item a:hover {
+    color:#69f;
+}
+#catd_drop_extras_list li {
+    margin:5px 0;
+}
+
+
+.catd_bars_hover_state_box {
+    background:white;
+    padding:5px;
+    border:1px solid #ccc;
+    width:100px;
+}
+.bar_graph_x_axis_tick_box {
+    position:absolute;
+    white-space:pre;
+}
+
+.catd_bars_hover_state_box span {
+    white-space:pre;
+    display:block;
+    width:auto;
+    position:relative;    
+}
+
+
+
+.altrow {
+    background:#f6f6f6;
+}
+
+.catd_single_item_color {
+    width:14px;
+    height:14px;
+    display:block;
+    position:absolute;
+    left:10px;
+    top:9px;
+    background:#ccc;
+}
+/*  this css is tied to JS -- is should probably be printed / attached from JS -- todo  */
+.catd_color_1 {
+    background:rgb(103,184,178);
+}
+.catd_color_2 {
+    background:rgb(171,214,195);
+}
+.catd_color_3 {
+    background:rgb(180,179,224);
+}
+.catd_color_4 {
+    background:rgb(222,224,179);
+}
+.catd_color_5 {
+    background:rgb(255,234,169);
+}
+.catd_color_6 {
+    background:rgb(255,214,191);
+}
+.catd_color_7 {
+    background:rgb(252,205,224);
+}
+.catd_color_8 {
+    background:rgb(222,170,211);
+}
+.catd_color_9 {
+    background:rgb(159,224,229);
+}
+.catd_color_10 {
+    background:rgb(151,170,207);
+}
+.catd_color_11 {
+    background:rgb(143,203,157);
+}
+
+
+.catd_trending_extras {
+    position:relative;
+}
+.catd_trend_count {
+    color:#666;
+    text-align:right;
+    width:58px;
+    display:block;
+    font-size:18px;
+}
+.catd_single_trending_item {
+    position:relative;
+    height:55px;
+    margin:5px 0;
+}
+.catd_trend_title {
+    position:absolute;
+    left:66px;
+    top:1px;
+    white-space:pre;
+}                    
+.catd_trend_title_lnk {
+    font-size:15px;
+}
+.catd_trend_title a {
+    display:block;
+}
+.catd_trend_long_teaser {
+    color:#999;
+}
+
+#catd_trending_box strong {
+  padding-left: 20px;
+  background: transparent url(/s/graphics/trend-icon.png) no-repeat scroll left center;
+}
+
+a.more {
+  padding-left: 13px;
+  margin-left: 5px;
+  background: transparent url(/s/graphics/zippy.png) no-repeat scroll 0 2px;
+}
+
+a.less {
+  padding-left: 13px;
+  margin-left: 5px;
+  background: transparent url(/s/graphics/zippy-less.png) no-repeat scroll 0 2px;
+}
+
+ul.referrer_detail {
+  margin-top: 10px;
+  width: 100%;
+}
+ul.referrer_detail li {
+  width: 100%;
+  line-height: 20px;
+}
+ul.referrer_detail li span {
+  float: left;
+}
+
+.referrer_page { width: 357px; white-space: nowrap; overflow: hidden;}
+.referrer_count { width: 75px; text-align: right;}
+
+
+/*
+    Display Unrolled Summary Metrics Data
+*/
+#unrolled_metrics_outer_box {
+    border:1px solid #ccc;
+    border-top:0px;
+    padding:10px 0 0;
+    height:auto;
+}
+.unrolled_metric_info_box {
+    margin:0 10px 10px;
+}
+.unrolled_metric_info_box h3 {
+    font-size:15px;
+    font-weight:normal;
+}
+
+.unrolled_metrics_header {
+    font-size:20px;
+    font-weight:normal;
+    display:block;
+    border-bottom:1px solid #ccc;
+    padding:10px 10px 6px;
+    margin-bottom:10px;
+}
+.unrolled_metrics_inner_box {
+    float:left;
+    margin-bottom:4px;
+    width:900px; 
+
+}
+.unrolled_click_num{
+    float:left;
+    text-align:right;
+    font-size:18px;
+    width:40px;
+    margin:0 10px 10px 0;
+}
+.unrolled_click_num a {
+    color:#555;
+}
+.unrolled_long_url a {
+    color:#999;
+}
+.unrolled_long_url {
+
+}
+.close_unrolled_metrics_box {
+    text-align:center;
+    background-color:#f6f6f6;
+    border-top:1px solid #ccc;
+    padding:4px 0;
+    margin-top:6px;
+    
+}

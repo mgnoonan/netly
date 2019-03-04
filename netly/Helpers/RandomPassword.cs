@@ -28,7 +28,6 @@ namespace netly.Helpers
         private static string PASSWORD_CHARS_LCASE = "abcdefghijklmnopqrstuvwxyz";
         private static string PASSWORD_CHARS_UCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private static string PASSWORD_CHARS_NUMERIC = "123456789";
-        private static string PASSWORD_CHARS_SPECIAL = "*$-+?_&=!%{}/";
 
         /// <summary>
         /// Generates a random password.

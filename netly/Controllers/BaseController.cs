@@ -31,46 +31,42 @@ namespace netly.Controllers
             public int wki100_ver_minor;
         }
 
-        private string _machineName = null;
-        public virtual string MachineName
+        public virtual string GetMachineName()
         {
-            get
+            WKSTA_INFO_100 info;
+            IntPtr pBuffer = IntPtr.Zero;
+            string _machineName;
+
+            try
             {
-                WKSTA_INFO_100 info;
-                IntPtr pBuffer = IntPtr.Zero;
-                string _machineName;
+                int retval = NetWkstaGetInfo(null, 100, out pBuffer);
+                if (retval == 0)
+                {
+                    info = (WKSTA_INFO_100)Marshal.PtrToStructure(pBuffer, typeof(WKSTA_INFO_100));
+                    _machineName = info.wki100_computername;
+                }
+                else
+                {
+                    _machineName = "00";
+                }
 
-                try
-                {
-                    int retval = NetWkstaGetInfo(null, 100, out pBuffer);
-                    if (retval == 0)
-                    {
-                        info = (WKSTA_INFO_100)Marshal.PtrToStructure(pBuffer, typeof(WKSTA_INFO_100));
-                        _machineName = info.wki100_computername;
-                    }
-                    else
-                    {
-                        _machineName = "00";
-                    }
-
-                    return _machineName;
-                }
-                catch
-                {
-                    throw;
-                }
-                finally
-                {
-                    if (pBuffer != IntPtr.Zero)
-                        NetApiBufferFree(pBuffer);
-                }
+                return _machineName;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (pBuffer != IntPtr.Zero)
+                    NetApiBufferFree(pBuffer);
             }
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             // Set the machine name so we can display in Site.master
-            ViewData["_machineName"] = System.Text.RegularExpressions.Regex.Replace(this.MachineName, @"[^\d]", "");
+            ViewData["_machineName"] = System.Text.RegularExpressions.Regex.Replace(this.GetMachineName(), @"[^\d]", "");
 
             // Set the assembly version so we can display in Site.master
             ViewData["_assemblyVersion"] = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();

@@ -160,7 +160,7 @@ namespace netly.Helpers
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // do something with the error
                 return false;
@@ -176,7 +176,7 @@ namespace netly.Helpers
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // do something with the error
                 return false;
